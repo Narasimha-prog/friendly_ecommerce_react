@@ -4,18 +4,20 @@ import authReducer from "./auth/authReducer";
 import themeReducer from "./theme/themeReducer";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
+import userReducer from "./user/userReducer";
 
 // Root reducer
 const rootReducer = combineReducers({
   auth: authReducer,
   theme: themeReducer,
+  user:userReducer
 });
 
 // Persist config
 const persistConfig: PersistConfig<RootReducer> = {
   key: "root",
   storage,
-  whitelist: ["auth", "theme"],
+  whitelist: ["auth", "theme","user"],
 };
 
 // Persisted reducer

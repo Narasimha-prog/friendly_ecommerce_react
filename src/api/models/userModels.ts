@@ -14,6 +14,14 @@ export interface UserLoginModel {
 }
 
 export interface UserResponseModel {
-  "id": "string",
-  "name": "string"
+  "id": string,
+  "name": string
+}
+
+
+export interface UserLoginResponse {
+  "accessToken": string,
+  "tokenType": string,
+  "expiresIn": number,
+  "issuedAt": number
 }

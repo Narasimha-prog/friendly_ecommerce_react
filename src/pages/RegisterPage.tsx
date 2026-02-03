@@ -1,8 +1,8 @@
-import React, { useState, type ChangeEvent } from 'react'
+import React, { useState, type ChangeEvent, type FormEvent } from 'react'
 import type { UserRegisterModel } from '../api/models/userModels';
 import { createUser } from '../api/userService';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../store/auth/authReducer';
+import { setUser } from '../store/user/userReducer';
 
 const RegisterPage = () => {
 
@@ -23,18 +23,19 @@ const RegisterPage = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
        
     console.log("Form Data Submitted:", formData);
     // Here you can add logic to send formData to your API  for registration
-     const response = createUser(formData).then(response => {
+     createUser(formData).then(response => {
       console.log("User created successfully:", response);
+       dispatch( setUser(response))
     }).catch(error => {
       console.error("Error creating user:", error);
     });
 
-     dispatch( loginSuccess(response))
+    
 
     // Reset form after submission
     setFormData({
@@ -49,30 +50,66 @@ const RegisterPage = () => {
 
   return (
     <div>
-        RegisterPage
+      RegisterPage
+      <form    
+             onSubmit={handleSubmit}
+             className="max-w-md mx-auto p-4 border border-gray-300 rounded"
+          
+             >
 
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Username:</label>
-            <input type="text" id="username" name="name"  value={formData.name}  onChange={handleChange} required />
-          </div>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
-          </div>
-          <div>
-            <label htmlFor="phoneNumber">Phone Number:</label>
-            <input type="tel" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
-          </div>
-          <button type="submit">Register</button>
-        </form>
-
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input
+          className='border rounded p-2 w-full mb-4'
+            type="text"
+            id="username"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+             className='border rounded p-2 w-full mb-4'
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+             className='border rounded p-2 w-full mb-4'
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="phoneNumber">Phone Number:</label>
+          <input
+             className='border rounded p-2 w-full mb-4'
+            type="tel"
+            id="phoneNumber"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button
+              type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Register</button>
+      </form>
     </div>
-  )
+  );
 }
 
 export default RegisterPage

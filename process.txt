@@ -1,0 +1,23 @@
+EventTarget
+  └── Node
+      └── Element
+          └── HTMLElement
+              ├── HTMLDivElement
+              ├── HTMLFormElement
+              ├── HTMLInputElement
+              ├── HTMLButtonElement
+
+Event
+ ├── UIEvent
+ │    ├── MouseEvent
+ │    ├── KeyboardEvent
+ │    └── FocusEvent
+ └── FormEvent (React-specific)
+
+
+ document.addEventListener('click', (e) => {
+  e.clientX; // MouseEvent
+});
+
+e.target        // EventTarget | null
+e.currentTarget // HTMLElement

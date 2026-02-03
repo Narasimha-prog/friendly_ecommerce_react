@@ -1,11 +1,16 @@
 import api from "./axios";
-import type { UserRegisterModel, UserResponseModel } from "./models/userModels";
+import type { UserLoginModel, UserLoginResponse, UserRegisterModel, UserResponseModel } from "./models/userModels";
 
 
 export const getUsers = async (): Promise<UserResponseModel[]> => {
   const res = await api.get("/users");
   return res.data;
 };
+
+export const loginUser= async (data:UserLoginModel): Promise<UserLoginResponse> =>{
+     const res=await api.post("/users/login",data)
+     return res.data;
+}
 
 export const getUserById = async (id: string): Promise<UserResponseModel> => {
   const res = await api.get(`/users/${id}`);
