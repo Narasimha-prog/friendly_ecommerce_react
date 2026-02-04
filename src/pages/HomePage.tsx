@@ -1,15 +1,34 @@
-import { Link } from "react-router-dom"
+
 
 const HomePage = () => {
+
+
   return (
-    <div>HomePage
+    <div
+      className="
+        min-h-screen
+        flex flex-col
+        items-center
+        justify-center
+        px-4
+      "
+    >
+      {/* Title */}
+      <h1
+        className="
+          text-2xl
+          font-bold
+          text-center
+          mb-8
+          md:text-4xl
+        "
+      >
+        Welcome to Friendly Ecommerce
+      </h1>
 
-      <br></br>
-      <Link to="/register">Go to Register Page</Link>
-      <br></br>
-      <Link to="/login">Go to Login Page</Link>
+  
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

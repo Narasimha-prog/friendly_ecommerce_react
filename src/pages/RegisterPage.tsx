@@ -3,10 +3,12 @@ import type { UserRegisterModel } from '../api/models/userModels';
 import { createUser } from '../api/userService';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../store/user/userReducer';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
 
 
+  const navigate=useNavigate();
 
    const [formData, setFormData] = useState<UserRegisterModel>({
     name: "",
@@ -31,6 +33,8 @@ const RegisterPage = () => {
      createUser(formData).then(response => {
       console.log("User created successfully:", response);
        dispatch( setUser(response))
+       navigate("/login")
+
     }).catch(error => {
       console.error("Error creating user:", error);
     });

@@ -4,9 +4,12 @@ import { loginUser } from "../api/userService";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../store/auth/authReducer";
 import type { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const LoginPage = () => {
+
+  const navigate=useNavigate();
   const auth = useDispatch();
 
   const [formData, setFormData] = useState<UserLoginModel>({
@@ -19,7 +22,13 @@ const LoginPage = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     loginUser(formData)
-    .then((response) => auth(loginSuccess(response)))
+    .then((response) => {
+      console.log(response);
+      
+      auth(loginSuccess(response))
+      navigate("/dashboard");       // 🚀 redirect to dashboard
+    })
+     
     .catch((err) => {
       const error = err as AxiosError<string>;
       setError(error.response?.data ?? "Login failed");
@@ -58,11 +67,7 @@ const LoginPage = () => {
         <button type="submit" className="bg-blue-500 border rounded text-white p-2  hover:bg-blue-600"> Submit Form</button>
       </form>
       <div>
-       {error && (
-     <div className="text-red-500 mt-2">
-    {error }
-     </div>
-    )}
+        {error && <div className="text-red-500 mt-5 text-center">{error}</div>}
       </div>
     </div>
     
